@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla | Vehículos del Futuro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;800&display=swap" rel="stylesheet">
+    <title>Cybertruck | Diseñado para cualquier planeta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
         /* Variables y Configuración Base */
         :root {
-            --bg-color: #050505;
+            --bg-color: #000000;
             --text-color: #ffffff;
+            --accent-gray: #111317;
+            --metal-gray: #8e8e8e;
         }
 
         * {
@@ -31,7 +33,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 25px 50px;
+            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -40,21 +42,21 @@
         }
 
         nav.scrolled {
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
             padding: 15px 50px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid #333;
         }
 
         .logo {
             font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 5px;
+            font-weight: 900;
+            letter-spacing: 8px;
             text-transform: uppercase;
-            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-color);
         }
 
-        /* Menú de Navegación interno */
         .nav-links {
             display: flex;
             gap: 30px;
@@ -64,100 +66,62 @@
             color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
             transition: color 0.3s;
-            cursor: pointer;
-            position: relative;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--text-color);
-            transition: width 0.3s ease;
+        .nav-links a:hover {
+            color: var(--metal-gray);
         }
 
-        .nav-links a:hover::after, .nav-links a.active::after {
-            width: 100%;
-        }
-
-        /* Contenedor de Vistas (Páginas) */
-        .view {
-            display: none; /* Oculto por defecto */
-            animation: fadeInView 0.8s ease forwards;
-        }
-
-        .view.active {
-            display: block; /* Muestra solo la página activa */
-        }
-
-        /* Sección Hero General */
+        /* Sección Hero con tu GIF 3D */
         .hero {
             height: 100vh;
+            /* Se aplica el primer GIF (Behance) como fondo con un degradado oscuro encima para que se lea el texto */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 100%), 
+                        url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/554b9b183907269.6552b1f0d9e62.gif') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             position: relative;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        /* Fondos específicos por producto */
-        #model-s .hero {
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--bg-color)), 
-                              url('https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop');
-        }
-
-        #cybertruck .hero {
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), var(--bg-color)), 
-                              url('https://images.unsplash.com/photo-1707056046467-33f7c4e51139?q=80&w=2070&auto=format&fit=crop');
         }
 
         .hero-title {
-            font-size: 5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: 15px;
+            text-transform: uppercase;
             opacity: 0;
             transform: translateY(40px);
             animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
-        }
-
-        /* Estilo especial para la fuente de Cybertruck (más agresiva) */
-        #cybertruck .hero-title {
-            letter-spacing: 10px;
-            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
 
         .hero-subtitle {
             font-size: 1.2rem;
-            font-weight: 300;
+            font-weight: 500;
             margin-top: 10px;
-            letter-spacing: 1px;
+            letter-spacing: 5px;
+            color: var(--metal-gray);
+            text-transform: uppercase;
             opacity: 0;
             transform: translateY(40px);
             animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.6s;
         }
 
-        /* Especificaciones Técnicas */
+        /* Especificaciones Hero */
         .specs-container {
             position: absolute;
             bottom: 50px;
             display: flex;
-            gap: 60px;
+            gap: 80px;
             opacity: 0;
             transform: translateY(40px);
             animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 1s;
-            width: 100%;
-            justify-content: center;
         }
 
         .spec-item {
@@ -165,39 +129,129 @@
         }
 
         .spec-value {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 700;
         }
 
         .spec-label {
-            font-size: 0.8rem;
-            font-weight: 300;
-            color: #aaaaaa;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--metal-gray);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-top: 5px;
         }
 
-        /* Sección de Compra (Detalles) */
-        .product-section {
-            min-height: 100vh;
+        /* Secciones de Características (Imagen + Texto) */
+        .feature-section {
+            display: flex;
+            align-items: center;
+            min-height: 80vh;
+            padding: 80px 10vw;
+            gap: 50px;
+            background-color: var(--bg-color);
+        }
+
+        .feature-section.reverse {
+            flex-direction: row-reverse;
+            background-color: var(--accent-gray);
+        }
+
+        .feature-image {
+            flex: 1;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 0; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid #333;
+        }
+
+        .feature-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .feature-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .feature-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #b0b0b0;
+            font-weight: 300;
+        }
+
+        /* Sección de Compra con el Logo Orbital */
+        .order-section {
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 100px 20px;
-            background: radial-gradient(circle at center, #1a1a1a 0%, var(--bg-color) 70%);
-        }
-
-        .product-details {
             text-align: center;
-            max-width: 800px;
+            padding: 100px 20px;
+            /* Se aplica la imagen espacial con oscurecimiento */
+            background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,1) 100%),
+                        url('https://images.stockcake.com/public/2/e/2/2e2965c4-b64b-40a5-a213-06f56a2b29bd_large/orbital-tesla-logo-stockcake.jpg') center/cover no-repeat;
         }
 
+        .price-title {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--text-color);
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .price-tag {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 40px;
+            letter-spacing: -2px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .price-tag span {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #ccc;
+            letter-spacing: 0;
+        }
+
+        /* Botón estilo Cybertruck */
+        .btn-comprar {
+            display: inline-block;
+            padding: 20px 80px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--bg-color);
+            background-color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        .btn-comprar:hover {
+            background-color: var(--metal-gray);
+            color: var(--text-color);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+        }
+
+        /* Animación de Scroll */
         .reveal {
             opacity: 0;
-            transform: translateY(80px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal.active {
@@ -205,174 +259,90 @@
             transform: translateY(0);
         }
 
-        .product-description {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #cccccc;
-            margin-bottom: 40px;
-        }
-
-        .price-tag {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 30px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-        }
-
-        .price-tag span {
-            font-size: 1.5rem;
-            color: #888;
-            font-weight: 300;
-        }
-
-        /* Botón de compra reactivo */
-        .btn-comprar {
-            display: inline-block;
-            padding: 18px 60px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--bg-color);
-            background-color: var(--text-color);
-            text-decoration: none;
-            border-radius: 5px; /* Más cuadrado y moderno */
-            border: 2px solid var(--text-color);
-            transition: all 0.4s ease;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-comprar:hover {
-            background-color: transparent;
-            color: var(--text-color);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-            transform: translateY(-5px); /* Efecto de levitación */
-        }
-
-        /* Animaciones Keyframes */
         @keyframes fadeUp {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeInView {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 15px; padding: 20px; }
-            .hero-title { font-size: 3rem; }
-            .specs-container { gap: 20px; flex-direction: column; bottom: 30px; }
-            .spec-value { font-size: 1.8rem; }
-            .price-tag { font-size: 2.5rem; }
+        /* Responsive */
+        @media (max-width: 900px) {
+            .feature-section, .feature-section.reverse {
+                flex-direction: column;
+                padding: 50px 20px;
+            }
+            .feature-image { width: 100%; height: 300px; }
+            .hero-title { font-size: 3.5rem; letter-spacing: 8px; }
+            .specs-container { gap: 30px; flex-direction: column; bottom: 20px; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
     <nav id="navbar">
-        <div class="logo" onclick="switchPage('model-s')">TESLA</div>
+        <a href="#" class="logo">TESLA</a>
         <div class="nav-links">
-            <a id="link-model-s" class="active" onclick="switchPage('model-s')">Model S Plaid</a>
-            <a id="link-cybertruck" onclick="switchPage('cybertruck')">Cybertruck</a>
+            <a href="#rendimiento">Rendimiento</a>
+            <a href="#icono">Diseño</a>
+            <a href="#comprar">Encargar</a>
         </div>
     </nav>
 
-    <main id="model-s" class="view active">
-        <section class="hero">
-            <h1 class="hero-title">Model S Plaid</h1>
-            <p class="hero-subtitle">Más allá de lo ridículo.</p>
+    <section class="hero">
+        <h1 class="hero-title">Cybertruck</h1>
+        <p class="hero-subtitle">Construido para cualquier planeta</p>
 
-            <div class="specs-container">
-                <div class="spec-item">
-                    <div class="spec-value">600 km</div>
-                    <div class="spec-label">Autonomía (WLTP)</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-value">2.1 s</div>
-                    <div class="spec-label">0-100 km/h</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-value">1.020 CV</div>
-                    <div class="spec-label">Potencia</div>
-                </div>
+        <div class="specs-container">
+            <div class="spec-item">
+                <div class="spec-value">547 km</div>
+                <div class="spec-label">Autonomía Est.</div>
             </div>
-        </section>
-
-        <section class="product-section">
-            <div class="product-details reveal">
-                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">El futuro de la conducción</h2>
-                <p class="product-description">
-                    Con la aceleración más rápida de cualquier vehículo en producción, 
-                    el Model S Plaid es la definición de rendimiento absoluto. Diseñado 
-                    para la máxima eficiencia aerodinámica.
-                </p>
-                <div class="price-tag">109.990 € <span>/ desde</span></div>
-                <a href="#checkout-models" class="btn-comprar">Encargar Model S</a>
+            <div class="spec-item">
+                <div class="spec-value">2.7 s</div>
+                <div class="spec-label">0-100 km/h</div>
             </div>
-        </section>
-    </main>
-
-    <main id="cybertruck" class="view">
-        <section class="hero">
-            <h1 class="hero-title">CYBERTRUCK</h1>
-            <p class="hero-subtitle">Construido para cualquier planeta.</p>
-
-            <div class="specs-container">
-                <div class="spec-item">
-                    <div class="spec-value">547 km</div>
-                    <div class="spec-label">Autonomía Est.</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-value">2.7 s</div>
-                    <div class="spec-label">0-100 km/h</div>
-                </div>
-                <div class="spec-item">
-                    <div class="spec-value">4.990 kg</div>
-                    <div class="spec-label">Capacidad de Remolque</div>
-                </div>
+            <div class="spec-item">
+                <div class="spec-value">4.990 kg</div>
+                <div class="spec-label">Capacidad de Remolque</div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="product-section">
-            <div class="product-details reveal">
-                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Exoesqueleto Imparable</h2>
-                <p class="product-description">
-                    Un exoesqueleto de acero inoxidable ultraduro y cristal blindado. 
-                    Más utilidad que una camioneta, más rendimiento que un deportivo. 
-                    El Cybertruck es indestructible y salvajemente rápido.
-                </p>
-                <div class="price-tag">99.990 € <span>/ desde (Cyberbeast)</span></div>
-                <a href="#checkout-cybertruck" class="btn-comprar" style="border-radius: 0;">Encargar Cybertruck</a>
+    <section id="rendimiento" class="feature-section">
+        <div class="feature-content reveal">
+            <h2 class="feature-title">Rendimiento Imparable</h2>
+            <p class="feature-text">
+                Un centro de gravedad extremadamente bajo y una tracción total sin precedentes. 
+                El Cybertruck domina cualquier terreno ofreciendo un control absoluto. Acelera con la furia de un superdeportivo 
+                y absorbe el impacto de las carreteras más hostiles como si no existieran.
+            </p>
+        </div>
+        <div class="feature-image reveal" style="background-image: url('https://media.tenor.com/9w7jK3nJjrMAAAAM/driving-tesla-cybertruck-marques-brownlee.gif');"></div>
+    </section>
+
+    <section id="icono" class="feature-section reverse">
+        <div class="feature-content reveal">
+            <h2 class="feature-title">Un Icono Global</h2>
+            <p class="feature-text">
+                Más que un vehículo, un fenómeno cultural. Su geometría radical de acero inoxidable no solo optimiza la aerodinámica 
+                y la protección balística, sino que ha redefinido el futuro del diseño automotriz, inspirando desde obras de arte hasta 
+                codiciadas ediciones de colección.
+            </p>
+        </div>
+        <div class="feature-image reveal" style="background-image: url('https://www.elcarrocolombiano.com/wp-content/uploads/2020/02/202202-TESLA-CYBERTRUCK-HOT-WHEELS-PORTADA-1.jpg');"></div>
+    </section>
+
+    <section id="comprar" class="order-section">
+        <div class="reveal">
+            <div class="price-title">Versión Cyberbeast</div>
+            <div class="price-tag">
+                99.990 € <span>/ IVA incl.</span>
             </div>
-        </section>
-    </main>
+            <a href="https://www.tesla.com/es_es/cybertruck" class="btn-comprar">Encargar Ahora</a>
+        </div>
+    </section>
 
     <script>
-        // 1. Sistema de navegación entre productos (SPA)
-        function switchPage(pageId) {
-            // Quitar clase active de todas las vistas
-            document.querySelectorAll('.view').forEach(view => {
-                view.classList.remove('active');
-            });
-            // Quitar clase active de todos los links
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-            });
-
-            // Añadir clase active a la vista y enlace seleccionados
-            document.getElementById(pageId).classList.add('active');
-            document.getElementById('link-' + pageId).classList.add('active');
-
-            // Subir al principio de la página suavemente
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Reiniciar los efectos de scroll para la nueva vista
-            setTimeout(reveal, 100); 
-        }
-
-        // 2. Efecto de la barra de navegación (Glassmorphism)
+        // Efecto en la barra de navegación al hacer scroll
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -382,24 +352,24 @@
             }
         });
 
-        // 3. Efecto de aparición al hacer scroll (Reveal)
-        function reveal() {
-            var reveals = document.querySelectorAll('.reveal');
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
+        // Intersection Observer para animaciones limpias al hacer scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
 
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add('active');
-                } else {
-                    reveals[i].classList.remove('active'); // Permite que se repita la animación al subir y bajar
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
-            }
-        }
+            });
+        }, observerOptions);
 
-        window.addEventListener('scroll', reveal);
-        reveal(); // Ejecutar al cargar
+        document.querySelectorAll('.reveal').forEach((element) => {
+            observer.observe(element);
+        });
     </script>
 </body>
 </html>
